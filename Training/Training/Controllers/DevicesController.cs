@@ -5,7 +5,7 @@ using TrainingApi.Data.DbContexts;
 using TrainingApi.Domain.Entities;
 using TrainingApi.Domain.Enums;
 
-namespace TrainingApi;
+namespace TrainingApi.Controllers;
 
 [ApiController]
 [Route("api/devices")]
