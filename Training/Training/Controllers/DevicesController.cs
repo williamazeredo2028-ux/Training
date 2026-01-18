@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using TrainingApi.Data.DbContexts;
 using TrainingApi.Domain.Entities;
 using TrainingApi.Domain.Enums;
@@ -127,8 +128,20 @@ public class DevicesController : ControllerBase
 
         patchDoc.ApplyTo(deviceToPatch);
 
-        if (!TryValidateModel(deviceToPatch))
+        var validationResults = new List<ValidationResult>();
+        bool isValid = Validator.TryValidateObject(
+            deviceToPatch,
+            new ValidationContext(deviceToPatch),
+            validationResults,
+            validateAllProperties: true
+        );
+
+        if (!isValid)
         {
+            foreach (var validationResult in validationResults)
+            {
+                ModelState.AddModelError(validationResult.MemberNames.FirstOrDefault() ?? string.Empty, validationResult.ErrorMessage ?? string.Empty);
+            }
             return ValidationProblem(ModelState);
         }
 
