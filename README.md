@@ -47,3 +47,9 @@ A REST API for managing device resources
 ## Notes
 - Database: SQLite (file: devices.db).
 - Tests use in-memory DB for isolation.
+
+## Possible improvements
+- Architecture: Spliting into layers(e.g. Api, Application, Domain and Infrastructure).
+- Validation: Increment FluentValidation and automatic validation filters.
+- Error Handling: Configure a Global exception handling middleware, implement ProblemDetails Class and specify custom error responses.
+- Security: Add Authentication mechanism(e.g. JWT Bearer), Authorization policies and reforce security with HTTPS.
